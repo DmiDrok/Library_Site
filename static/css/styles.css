@@ -406,3 +406,27 @@ body
     font-weight: 600;
     margin: 1rem;
 }
+
+.quote_writer
+{
+    display: grid;
+}
+
+.quote_writer p
+{
+    display: grid;
+    font-style: italic;
+    width: 60%;
+    font-size: 14px;
+    justify-self: end;
+}
+
+.quote_writer p::first-letter
+{
+    margin: 0;
+}
+
+.quote_writer p i
+{
+    justify-self: end;
+}

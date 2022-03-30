@@ -90,7 +90,7 @@ def page_creation(writer, translit_creation_name):
     ##Для исключения невозможных символов в названии папки
     creation_name_search = update_creation_name(creation_name)
     
-    ##Заполняем главы в список
+    ##Заполняем главы в список; Глав меньше одного или всего одна - отдаём пустой список глав, т.к. текст коротких произведений будет храниться в БД
     chapters = []
     if os.path.exists(app.root_path + f"/static/txt/{writer_name}/{creation_name_search}"):
         if len(os.listdir(app.root_path + f"/static/txt/{writer_name}/{creation_name_search}")) <= 1:
@@ -147,7 +147,7 @@ def page_creation_content(writer, translit_creation_name, chapter):
                     text = file.read()
 
 
-    ##Проверка для корректных названий (лучше переделать)
+    ##Проверка для корректных названий глав (лучше переделать)
     if len(chapters) == 1:
         if chapters[0].lower() == "с чего начать":
             new_chapter_name = creation_name

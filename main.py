@@ -86,7 +86,6 @@ def page_creation(writer, translit_creation_name):
 
     text_creation = Books.query.filter_by(book_name=creation_name).first().book_text.strip() ##Текст перед главами
     
-
     ##Для исключения невозможных символов в названии папки
     creation_name_search = update_creation_name(creation_name)
     
@@ -98,13 +97,7 @@ def page_creation(writer, translit_creation_name):
         else:
             chapters = [ch[3:-4] for ch in os.listdir(app.root_path + f"/static/txt/{writer_name}/{creation_name_search}")]
 
-    ##Проверка для корректных названий (лучше переделать)
-    if len(chapters) == 1:
-        if chapters[0].lower() == "с чего начать":
-            new_chapter_name = creation_name
-            chapters[0] = new_chapter_name
-            #new_chapter_name = chapters[0] + "?"
-            #chapters[0] = new_chapter_name
+    #.replace("Ɂ", "?").replace("꞉", ":")
 
     return render_template(
         "creation.html",
@@ -132,7 +125,6 @@ def page_creation_content(writer, translit_creation_name, chapter):
 
     if os.path.exists(app.root_path + f"/static/txt/{writer_name}/{creation_name_search}"):
         chapters = [ch[3:-4] for ch in os.listdir(app.root_path + f"/static/txt/{writer_name}/{creation_name_search}")] ##Выбираем в список название главы по имени файла с третьего индекса по -4 (точка перед расширением txt)
-
     text = "" ##Здесь будет текст
     ##Скрипт для выборки файла главы с текстом по имени главы в url. Поскольку названия файлов начинаются с 01_ и т.д.
     try:
@@ -145,13 +137,6 @@ def page_creation_content(writer, translit_creation_name, chapter):
             if chapter in [file_n[3:-4]]:
                 with open(app.root_path + f"/static/txt/{writer_name}/{creation_name_search}/{file_n}", "r", encoding="utf-8") as file:
                     text = file.read()
-
-
-    ##Проверка для корректных названий глав (лучше переделать)
-    if len(chapters) == 1:
-        if chapters[0].lower() == "с чего начать":
-            new_chapter_name = creation_name
-            chapters[0] = new_chapter_name
 
     return render_template("creation_content.html",
      text_content=text,

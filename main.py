@@ -149,5 +149,3 @@ def page_creation_content(writer, translit_creation_name, chapter):
 
 if __name__ == "__main__":
     app.run("localhost", debug=True)
-
-#http://192.168.0.102:5000/
